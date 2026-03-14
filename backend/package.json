@@ -6,9 +6,9 @@
   "description": "Backend for VirtuHire project",
   "author": "Bharti Dhotre",
   "license": "ISC",
-  "engines": {
-    "node": "18.x"
-  },
+ "engines": {
+  "node": "20.x"
+},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
