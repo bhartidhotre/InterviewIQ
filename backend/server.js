@@ -6,7 +6,10 @@ const app = express();
 const authMiddleware = require("./middlewares/authMiddleware");
 const resumeRoutes = require("./routes/resume");
 app.use(cors({
-  origin: ["http://localhost:5173", "https://your-frontend-url.onrender.com"], // your frontend dev URL
+  origin: [
+  "http://localhost:5173",
+  "interview-iq-zeta.vercel.app"
+],
   credentials: true
 }));
 
