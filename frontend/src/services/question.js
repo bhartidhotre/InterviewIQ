@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000/api"; // your backend base URL
+const API_BASE = "https://smart-interview-197c.onrender.com/api"; // your backend base URL
 
 export const fetchRandomQuestions = async (
   token,
