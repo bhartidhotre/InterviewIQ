@@ -59,7 +59,7 @@ const Navbar = () => {
           {token && user?.role === "ADMIN" && (
             <motion.div variants={navItem} initial="hidden" animate="show">
               <Link className="hover:text-blue-600 transition" to="/add-question">
-                Add Question
+                Add Questions
               </Link>
             </motion.div>
           )}
