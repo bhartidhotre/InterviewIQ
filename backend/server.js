@@ -6,7 +6,7 @@ const app = express();
 const authMiddleware = require("./middlewares/authMiddleware");
 const resumeRoutes = require("./routes/resume");
 app.use(cors({
-  origin: "http://localhost:5173", // your frontend dev URL
+  origin: ["http://localhost:5173", "https://your-frontend-url.onrender.com"], // your frontend dev URL
   credentials: true
 }));
 
@@ -43,4 +43,7 @@ mongoose
         console.log("MongoDB connected");
         app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`));
     })
-    .catch((err)=> console.log(err));
+    .catch((err) => {
+    console.error("MongoDB connection failed:", err);
+    process.exit(1); // stop app properly
+});
