@@ -63,7 +63,7 @@ const Hero = () => {
           className="relative flex justify-center"
         >
           <motion.img
-            src="../public/hero.jpg"
+            src="/hero.jpg"
             alt="Interview Illustration"
             className="w-full max-w-lg rounded-2xl drop-shadow-2xl"
             animate={{ y: [0, -12, 0] }}
