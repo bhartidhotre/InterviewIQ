@@ -4,6 +4,7 @@ export default function VoiceRecorder({ setAnswer, setConfidence }) {
 
   const [listening, setListening] = useState(false);
   const recognitionRef = useRef(null);
+  const lastTranscriptRef = useRef(""); // ✅ FIX
 
   const startListening = () => {
 
@@ -17,10 +18,10 @@ export default function VoiceRecorder({ setAnswer, setConfidence }) {
 
     const recognition = new SpeechRecognition();
 
-    recognition.continuous = true;
-    recognition.interimResults = true;
+    // ✅ FIX for mobile
+    recognition.continuous = false;
+    recognition.interimResults = false;
     recognition.lang = "en-US";
-    recognition.maxAlternatives = 1;
 
     recognition.onstart = () => {
       setListening(true);
@@ -32,29 +33,33 @@ export default function VoiceRecorder({ setAnswer, setConfidence }) {
       let confidence = 0;
 
       for (let i = event.resultIndex; i < event.results.length; i++) {
-
         if (event.results[i].isFinal) {
           finalTranscript += event.results[i][0].transcript;
           confidence = event.results[i][0].confidence;
         }
-
       }
 
-     if (
-    finalTranscript &&
-    finalTranscript !== lastTranscriptRef.current
-  ) {
-    setAnswer(prev => (prev + " " + finalTranscript).trim());
-    setConfidence(confidence);
-    lastTranscriptRef.current = finalTranscript;
-  }
-};
+      // ✅ Prevent duplicates
+      if (
+        finalTranscript &&
+        finalTranscript !== lastTranscriptRef.current
+      ) {
+        setAnswer(prev => (prev + " " + finalTranscript).trim());
+        setConfidence(confidence);
+        lastTranscriptRef.current = finalTranscript;
+      }
+    };
+
     recognition.onerror = (event) => {
       console.log("Speech error:", event.error);
     };
 
     recognition.onend = () => {
-      setListening(false);
+      if (listening) {
+        recognition.start(); // optional auto-restart
+      } else {
+        setListening(false);
+      }
     };
 
     recognition.start();
