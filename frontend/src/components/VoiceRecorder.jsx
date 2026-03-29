@@ -40,13 +40,15 @@ export default function VoiceRecorder({ setAnswer, setConfidence }) {
 
       }
 
-      if (finalTranscript) {
-        setAnswer(prev => (prev + " " + finalTranscript).trim());
-        setConfidence(confidence);
-      }
-
-    };
-
+     if (
+    finalTranscript &&
+    finalTranscript !== lastTranscriptRef.current
+  ) {
+    setAnswer(prev => (prev + " " + finalTranscript).trim());
+    setConfidence(confidence);
+    lastTranscriptRef.current = finalTranscript;
+  }
+};
     recognition.onerror = (event) => {
       console.log("Speech error:", event.error);
     };
