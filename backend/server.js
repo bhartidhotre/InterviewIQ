@@ -7,9 +7,9 @@ const authMiddleware = require("./middlewares/authMiddleware");
 const resumeRoutes = require("./routes/resume");
 app.use(cors({
   origin: [
-  "http://localhost:5173",
-  "interview-iq-zeta.vercel.app"
-],
+    "http://localhost:5173",
+    "https://interview-iq-zeta.vercel.app"
+  ],
   credentials: true
 }));
 
